@@ -10,7 +10,7 @@ function Commit(message, attrs, _raw, _raw_header) {
 var cons = Commit
   , proto = cons.prototype
 
-proto.type = 0
+proto.type = 1 
 proto.looseType = 'commit'
 
 proto.author = function() {
