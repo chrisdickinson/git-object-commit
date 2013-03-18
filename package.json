@@ -1,0 +1,21 @@
+{
+  "name": "git-object-commit",
+  "version": "0.0.0",
+  "description": "parse and create git commit objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chrisdickinson/git-object-commit.git"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "object"
+  ],
+  "author": "Chris Dickinson <chris@neversaw.us>",
+  "license": "MIT",
+  "gitHead": "eebf9d80930062a89d3278f050a57d77acb7a64a"
+}
