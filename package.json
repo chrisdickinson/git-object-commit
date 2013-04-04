@@ -1,6 +1,6 @@
 {
   "name": "git-object-commit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "parse and create git commit objects",
   "main": "index.js",
   "scripts": {
