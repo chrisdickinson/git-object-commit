@@ -76,7 +76,7 @@ proto.serialize = function() {
     }
   }
 
-  buf = new Buffer('\n'+message, 'utf8')
+  buf = new Buffer('\n'+this._message, 'utf8')
   buffers.push(buf)
   size += buf.length
 
