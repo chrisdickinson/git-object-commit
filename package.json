@@ -18,7 +18,7 @@
   "author": "Chris Dickinson <chris@neversaw.us>",
   "license": "MIT",
   "dependencies": {
-    "bops": "0.0.1"
+    "bops": "0.0.2"
   },
   "gitHead": "eebf9d80930062a89d3278f050a57d77acb7a64a"
 }
