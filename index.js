@@ -1,5 +1,7 @@
 module.exports = {read: read, create: create}
 
+var binary = require('bops')
+
 function Commit(message, attrs, _raw, _raw_header) {
   this._attrs = attrs
   this._raw = _raw
@@ -59,28 +61,24 @@ proto.serialize = function() {
   }
 
   var buffers = []
-    , size = 0
     , keybuf
     , blen
     , buf
 
   for(var key in this._attrs) {
-    keybuf = new Buffer(key+' ', 'utf8')
+    keybuf = binary.from(key+' ', 'utf8')
 
     for(var i = 0, len = this._attrs[key].length; i < len; ++i) {
       buffers.push(keybuf)
-      size += keybuf.length
-      buf = new Buffer(this._attrs[key][i]+'\n', 'utf8')
-      size += buf.length
+      buf = binary.from(this._attrs[key][i]+'\n', 'utf8')
       buffers.push(buf) 
     }
   }
 
-  buf = new Buffer('\n'+this._message, 'utf8')
+  buf = binary.from('\n'+this._message, 'utf8')
   buffers.push(buf)
-  size += buf.length
 
-  return Buffer.concat(buffers, size)
+  return binary.join(buffers)
 }
 
 function read(buf) {
@@ -98,7 +96,7 @@ function read(buf) {
     , val
 
   do {
-    _char = buf.readUInt8(idx++)
+    _char = buf[idx++]
     if(current.length === 1 && _char === 10) {
       --raw_header.length
       break
@@ -107,8 +105,8 @@ function read(buf) {
     } else if(_char === 10) {
       current[current.length] = idx - 1
 
-      attr = buf.slice(current[0], current[1]).toString('utf8')
-      val = buf.slice(current[1] + 1, current[2]).toString('utf8')
+      attr = binary.to(binary.subarray(buf, current[0], current[1]), 'utf8')
+      val = binary.to(binary.subarray(buf, current[1] + 1, current[2]), 'utf8')
 
       attrs[attr] = attrs[attr] || []
       attrs[attr].push(val)
@@ -118,7 +116,7 @@ function read(buf) {
     _last = _char
   } while(idx < len)
 
-  message = buf.slice(idx).toString('utf8')
+  message = binary.to(binary.subarray(buf, idx), 'utf8')
 
   return new Commit(message, attrs, buf, raw_header) 
 }
