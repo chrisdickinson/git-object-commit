@@ -124,7 +124,7 @@ function read(buf) {
 function create(author, tree, message, parent, committer, attrs) {
   attrs = attrs || {}
   committer = committer || author
-  parents = parents || []
+  parent = parent || []
   message = message || ''
 
   attrs.author = Array.isArray(author) ? author : [author]
