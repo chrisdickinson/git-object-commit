@@ -61,11 +61,16 @@ proto.serialize = function() {
   }
 
   var buffers = []
+    , order = ["tree", "parent", "author", "committer"]
     , keybuf
     , blen
     , buf
 
-  for(var key in this._attrs) {
+  for(var j = 0, l = order.length; j < l; j++) {
+    var key = order[j]
+    
+    if (!this._attrs[key]) continue;
+    
     keybuf = binary.from(key+' ', 'utf8')
 
     for(var i = 0, len = this._attrs[key].length; i < len; ++i) {
